@@ -1,0 +1,39 @@
+language: scala
+
+scala:
+- 2.12.1
+- 2.11.8
+
+jdk:
+- oraclejdk8
+
+install:
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
+  - npm install
+
+env:
+  global:
+    JSENV=node
+
+script:
+  - sbt ++$TRAVIS_SCALA_VERSION test:fastOptJS test:fullOptJS
+  - sbt ++$TRAVIS_SCALA_VERSION 'set parallelExecution in ThisBuild := false' test
+  - sbt ++$TRAVIS_SCALA_VERSION 'set parallelExecution in ThisBuild := false' 'set scalaJSStage in ThisBuild := FullOptStage' test
+
+
+deploy:
+  provider: script
+  script:
+  - /bin/bash "$TRAVIS_BUILD_DIR/.travis.credentials.sh" && sbt ++$TRAVIS_SCALA_VERSION publish
+  on:
+    tags: true
+
+env:
+  global:
+  # travis encrypt BINTRAY_USER=xxx
+  - secure: "pyYc8z/bJHNAj9T96ErbBpEaGmKAM01hq7bXrw76XXg2n3/flucJRtcbJeB/fI2oncINaorxfb4xPHPqFqrNhuKsRGaRlDXWgCf5IUmeeo3GlNHwiwyGBnCDE8ICclQAj6gfY4QnN/rWbmAFyUUnBusR1LWT/Z9zOApnHHqUNPdmOnbNt2nkf8vB1ARHLjPdchkWZ67kyBAY1Xav6tK4gMbl0g/Y0pWU0hZ5uNcnawM/Y6n/BIxiGR7fus/YXkvpOxIofUmTnNiTj6/3yRratjIK40KgO9HGBjY9nfNIA3u8a8lCWVb3OwixHmulqwJmo8HFHgV3XhpTCPp8Ig0vRlz128Cqmcca2HSb81e/yBYAXCi7l0nCfCZp+keovbzyWoSP3a99Xdux5gzNVCi0uuphT0dxG9tEDUtp21BjU/0QQ+x90yz3m6R/1/MIRhgqgWdtfFg8oTxhSsp5z5nLOHIGiDIE942yCsqHFzdUVpubLbvWF6RcDvt+LWyREJ4A6xZdRW4bWtX42o17EBp2CNQIEaLzKUR0XsGGdL0zt30/YBGI9Rxag7axgysNzoUei91VNNJNd57Sjgb2vl7OMhwFhj7D16GLCsTHuoeNUeiP2N9+Qywfy1utRdLQmE2i8WaBuFCqbglSx8VDP0m7cSLr/G4PvLLytYgJqFDaBKM="
+  # travis encrypt BINTRAY_PASSWORD=xxx
+  - secure: "Ab5MHWC8sQ8uyZGMzAKosR9iiTCcQ3t9Ki+q6TovslyFLA12k+OTi4W2mUEksRGp8wGrgq7eYiOrqOnXXIATZZAa/f5cvlo0YheKPMCY/YSACGhFstCkeU+k6lR7W637wWq3fFhGyjww+68SZbT6MDvzIL+p/5B2Ls+ph+wHTsqUFz4E8cdP3RhGyyB9dB1jvQcbYjMcZqudPdFVbz1vihtjyReovGMyiHQChd/1DbXlsWTfOq315WxC8LbQJBi68J/zDbefzmfA1TWAAQxxsmTdIRYP8j7Yf7N8a8MuKyxcxQeoKqFiPKHDwDjME7LuCb+sW1ZODaUBjPv3EvBgCg8oEpyeF8r4wvAIMMnAXb+hDCObO7Blrj2CDatj33uvmW1REqtbaOh9Bp29nfM1EiCHN56xzendQ6JN5r050x0DySY/FGiyVaMmC7fJ8olOCp7yinbJVi/qsHmjyZmX/AIcFQPReVvfqmyEjrq1J5HmgrvxtrsuaXVvoAKVZUNLc9MJRztfi54ThKmNoLG2SShdplIW+m1+Qe5ID61fGZlS1LPohXX1I1v24/yYI1mk5/SusRBpNWzgYPGtsYGgm4DHYnNYpVOkp4Kp2QoTlGTnrZ9ydrRUROGHXH4sHjwX7nSdI1N4yxLkLrXGVvBOZtK2E49U1WOWG454u9iNKC8="
+
