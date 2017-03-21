@@ -19,7 +19,7 @@ scalacOptions ++= Seq(
   "-language:implicitConversions"
 )
 
-libraryDependencies += "scalajs-react-universe" %%% "universal" % "v2017.3.22-beta" % Provided
+libraryDependencies += "scalajs-react-universe" %%% "universal" % "2017.3.22-beta" % Provided
 
 //bintray
 resolvers += Resolver.jcenterRepo
