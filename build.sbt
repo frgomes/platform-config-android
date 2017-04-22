@@ -4,9 +4,9 @@ name := "platform-config-android"
 
 enablePlugins(ScalaJSPlugin)
 
-val scala211 = "2.11.8"
+val scala211 = "2.11.11"
 
-val scala212 = "2.12.1"
+val scala212 = "2.12.2"
 
 scalaVersion := scala211
 
@@ -19,7 +19,7 @@ scalacOptions ++= Seq(
   "-language:implicitConversions"
 )
 
-libraryDependencies += "scalajs-react-interface" %%% "universal" % "2017.3.23-beta" % Provided
+libraryDependencies += "scalajs-react-interface" %%% "universal" % "2017.4.23-beta" % Provided
 
 //bintray
 resolvers += Resolver.jcenterRepo

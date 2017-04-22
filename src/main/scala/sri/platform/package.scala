@@ -1,16 +1,14 @@
 package sri
 
-
-import sri.universal.SriPlatForm
+import sri.universal.SriPlatform
 
 package object platform {
-  
-  implicit object SriPlatForm extends SriPlatForm {
 
-  @inline def isIOS: Boolean = false
-  @inline def isAndroid: Boolean = true
-  @inline def isWeb: Boolean = false
-}
+  implicit object SriPlatform extends SriPlatform {
 
+    @inline def isIOS: Boolean = false
+    @inline def isAndroid: Boolean = true
+    @inline def isWeb: Boolean = false
+  }
 
 }
