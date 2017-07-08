@@ -23,6 +23,7 @@ libraryDependencies += "scalajs-react-interface" %%% "universal" % "2017.7.9-RC"
 
 //bintray
 resolvers += Resolver.jcenterRepo
+resolvers += Resolver.bintrayRepo("scalajs-react-interface", "maven")
 
 organization := "scalajs-react-interface"
 
